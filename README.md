@@ -1,2 +1,4 @@
-# PSR docs template
-Template documentation repository for PSR
+# PSR API
+Repository for PSR API
+
+https://psrenergy-docs.github.io/psrapi/
