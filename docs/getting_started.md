@@ -22,20 +22,20 @@ nav_order: 4
 </appSettings>
 ```
 
-* `address`:<br>
+* `address` (obligatory):<br>
 Network address mask that must be used to accept the incoming connection. It also defines the port.
 
-* `rootpath`:<br>
-Root directory for all data and generated results. When it specified, API will automatically create the cases folder and runs folder, inside the given rootpath. Otherwise, these folders will be created inside this new folder path “C:\psrhttpfiles\”.
+* `rootpath` (obligatory):<br>
+Root directory for all data and generated results. When it specified, API will automatically create the _cases_ folder and _runs_ folder, inside the given rootpath. Otherwise, these folders will be created inside this new folder path “C:\psrhttpfiles\”.
 
-* `sddppath`:<br>
-SDDP installation directory (obligatory).
+* `sddppath` (obligatory):<br>
+SDDP installation directory.
 
-* `ncppath`:<br>
-NCP installation directory (obligatory).
+* `ncppath` (obligatory):<br>
+NCP installation directory.
 
 * `mcpath`:<br>
-MasterConverter application directory. MasterConverter is a console application that incorporates the low/mid level C++ API and processes the case update.
+MasterConverter application directory. MasterConverter is a console application that incorporates the low/mid level C++ API and processes the case update (obligatory).
 
 * `csvcnv`:<br>
 Version of SDDP/csv to be applied.
@@ -48,7 +48,7 @@ Secret id that must be passed in the request header (HTTP header).
 
 
 ## Starting Server
-1. Before running the API, it’s necessary to put all the basic cases inside the cases folder aforementioned.
+1. Before running the API, it’s necessary to put all the basic cases inside the _cases_ folder created, as mentioned before, in the roothpath folder.
 2. After that, run the _PSRHttpApi.exe_ file as administrator.
 3. From now on, all communication with the server can be done using GET requests.
 
@@ -56,15 +56,15 @@ Secret id that must be passed in the request header (HTTP header).
 ## Formatting the GET Requests
 
 * It's important to know that this the standard format of GET request:<br>
-http://server:port/functionallity?parameter1=value1&parameter2=value2&etc
+http://[server]:[port]/[functionallity]?[parameter]=[value]&[parameter]=[value]&etc
 
 * Here is some comments about this format:
-  * `server`: if _localhost_ is set as server, only the local machine connections will be accepted.
-  * `port`: if _8080_ is set as port, only the connections to the port 8080 will be accepted.
-  * `functionallity`: here is set the name of the desired method (_see more in Overview Tab_)
-  * `parameter`: each functionallity has a set of parameters (_see more in Overview Tab_)
-  * `value`: here is the value associated to each parameter (_casename = Brazil_base_case_)
-  * `&`: The character _&_ is used to separate the parameters of each method.
+  * `server` :  (if _localhost_ is set as server, only the local machine connections will be accepted).
+  * `port` : if _8080_, for example, is set as port, only the connections to the port 8080 will be accepted.
+  * `functionallity` : here is set the name of the desired method (_see more in Overview Tab_)
+  * `parameter` : each functionallity has a set of parameters (_see more in Overview Tab_)
+  * `value` : here is the value associated to each parameter (e.g. _casename = Brazil_base_case_)
+  * `&` : The character _&_ is used to separate the parameters of each method.
 
 
 ## Examples
@@ -89,3 +89,35 @@ http://localhost:8080/status?run_id=folder_id
 ### Python
 Here are some examples of how to call the existing API requests through `Python` code.<br>
 It's worth to mention that, in these examples, only the local machine connections to the port 8080 will be accepted.
+
+* Running a case:
+```python
+import requests
+
+response = requests.get("http://localhost:8080/run?casename=folder_name&model=sddp");
+print(response.json());
+```
+
+* Running a case and Updating some attributes:
+```python
+import requests
+
+response = requests.get("http://localhost:8080/run?casename=folder_name&model=sddp&updatefilename=json_file_name.json");
+print(response.json());
+```
+
+* Getting Results:
+```python
+import requests
+
+response = requests.get("http://localhost:8080/getresults?run_id=folder_id");
+print(response.json());
+```
+
+* Taking the _Status_ of a Run:
+```python
+import requests
+
+response = requests.get("http://localhost:8080/status?run_id=folder_id");
+print(response.json());
+```
