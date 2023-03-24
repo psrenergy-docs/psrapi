@@ -90,7 +90,7 @@ http://localhost:8080/status?run_id=folder_id
 Here are some examples of how to call the existing API requests through `Python` code.<br>
 It's worth to mention that, in these examples, only the local machine connections to the port 8080 will be accepted.
 
-* Running a case:
+* Running a case:<br>
 ```python
 import requests
 
@@ -98,7 +98,7 @@ response = requests.get("http://localhost:8080/run?casename=folder_name&model=sd
 print(response.json());
 ```
 
-* Running a case and Updating some attributes:
+* Running a case and Updating some attributes:<br>
 ```python
 import requests
 
@@ -106,7 +106,7 @@ response = requests.get("http://localhost:8080/run?casename=folder_name&model=sd
 print(response.json());
 ```
 
-* Getting Results:
+* Getting Results:<br>
 ```python
 import requests
 
@@ -114,7 +114,7 @@ response = requests.get("http://localhost:8080/getresults?run_id=folder_id");
 print(response.json());
 ```
 
-* Taking the _Status_ of a Run:
+* Taking the _Status_ of a Run:<br>
 ```python
 import requests
 
